@@ -1,0 +1,79 @@
+# Site settings
+title: 梦在星辰
+SEOTitle: 梦在星辰 | GOMYCK
+header-img: img/bg-home.jpg
+email: hao474798383@163.com
+description: "分享我所见, 所得, 不定期更新云原生, JAVA相关, 数据库相关, 微服务架构, 系统优化, 前端框架知识"
+keyword: "JAVA, 云原生, 微服务, k8s, docker, vue"
+url: "https://blog.gomyck.com" # your host, for absolute URL
+baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
+
+# SNS settings
+RSS: false
+weibo_username: "u/1809758623"
+zhihu_username: "meng-zai-xing-chen"
+github_username: "mzxc"
+twitter_username: "haoyang85596741"
+facebook_username: "yang.hao.5876060"
+#linkedin_username: ""
+
+# Analytics settings
+# Baidu Analytics
+ba_track_id: 21fff44e2ce8d25c2b6945d03572c1d7
+
+# Sidebar settings
+sidebar: true # whether or not using Sidebar.
+sidebar-about-description: "任凭风浪起 独坐钓鱼台"
+sidebar-avatar: /img/bg_sidecar.jpg # use absolute URL, seeing it's used in both `/` and `/about/`
+
+# Friends
+friends:
+  [
+    { title: "码农伴侣", href: "https://www.baidu.com" },
+    { title: "知识海洋", href: "https://www.google.com" },
+    { title: "人工智能", href: "https://chat.openai.com/chat" },
+  ]
+
+# Publish posts or collection documents with a future date. (预发布, 到时间自动显示)
+future: true
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: pretty
+paginate: 10
+exclude:
+  [
+
+  ]
+# If you have timezone issue (e.g. #68) in China, uncomment to use this:
+timezone: CN
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+# make sure you have this gem installed
+# `$ gem install jekyll-paginate`
+plugins: [jekyll-paginate]
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM # use Github Flavored Markdown !important
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+# Featured Tags
+featured-tags: true # whether or not using Feature-Tags
+featured-condition-size: 1 # A tag will be featured if the size of it is more than this condition value
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+incremental: true
