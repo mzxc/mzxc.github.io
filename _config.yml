@@ -75,5 +75,5 @@ featured-condition-size: 1 # A tag will be featured if the size of it is more th
 
 # Progressive Web Apps
 chrome-tab-theme-color: "#000000"
-service-worker: true
+service-worker: false
 incremental: true
