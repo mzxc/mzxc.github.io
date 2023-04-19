@@ -20,6 +20,15 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 文件切割和解压缩
+
+```shell
+# 第一个 xx.tar 是源文件  第二个是 prefix
+$ split -b 1024000000 -d -a 2 xx.tar xx.tar
+
+$ cat xxx.tar.gz* | tar -xvz
+```
+
 ### 算数运算
 ```shell
 $ a=1
