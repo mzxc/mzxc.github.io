@@ -20,6 +20,24 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 跳板机配置
+
+```shell
+$ ssh -J user1@serve1 user2@serve2
+```
+
+```text
+Host X1
+    HostName 192.168.x.x1
+    User root
+
+Host X2
+    HostName 192.168.x.x2
+    User root
+    ProxyJump X1
+    ForwardAgent yes
+```
+
 ### 隧道建立
 
 ```shell
