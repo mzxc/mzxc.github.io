@@ -20,6 +20,12 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 隧道建立
+
+```shell
+$ ssh -f -N -L localPort:remoteIp:remotePort user@server
+```
+
 ### 文件切割和解压缩
 
 ```shell
