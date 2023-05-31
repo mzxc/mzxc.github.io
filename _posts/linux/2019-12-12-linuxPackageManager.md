@@ -37,3 +37,23 @@ openPay: true
 ### tar
 
 > tar 是一种文件格式, 一般来说, tar 类型的软件包, 安装步骤都是: 解压, ./configure, make, make install
+
+### yum 配置文件的一些内置变量
+
+```text
+YUM仓库配置文件中的内置变量包括：
+
+$releasever：表示当前系统版本的变量，例如7或8等。
+
+$basearch：表示当前系统架构的变量，例如x86_64或i386等。
+
+$arch：表示当前软件包架构的变量，例如x86_64或i386等。
+
+$uuid：表示当前系统的唯一标识符，用于在订阅系统上注册新的存储库。
+
+$YUM0：表示存储库的基本目录，通常是/var/cache/yum/。
+
+$YUM5：表示存储库的元数据目录，通常是/var/cache/yum/x86_64/7Server。
+
+$YUM6：表示存储库的软件包目录，通常是/var/cache/yum/x86_64/7Server/base。
+```
