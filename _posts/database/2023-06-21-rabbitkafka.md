@@ -2,7 +2,7 @@
 layout: post
 title:  "rabbitmq 和 kafka 消息模型的区别以及 rabbitmq 的若干知识点"
 crawlertitle: "rabbitmq 和 kafka 消息模型的区别以及 rabbitmq 的若干知识点"
-subtitle: "Mysql database"
+subtitle: "RabbitMQ kafka amqp"
 ext: ""
 date:  2023-06-21
 header-style: img
