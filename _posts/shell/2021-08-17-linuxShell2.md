@@ -20,6 +20,15 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### IO 和网络监控
+
+```shell
+
+$ iptraf-ng
+$ iotop
+
+```
+
 ### 跳板机配置
 
 ```shell
