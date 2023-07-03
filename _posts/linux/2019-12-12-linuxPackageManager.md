@@ -3,7 +3,7 @@ layout: post
 title:  "Linux 包管理器"
 crawlertitle: "Linux 包管理器"
 subtitle: "LINUX YUM APT-GET RPM DPKG TAR"
-ext: ""
+ext: "nexus yum "
 date:  2019-12-12
 header-style: img
 header-img: img/in-post/common-bg.jpg
@@ -56,4 +56,18 @@ $YUM0：表示存储库的基本目录，通常是/var/cache/yum/。
 $YUM5：表示存储库的元数据目录，通常是/var/cache/yum/x86_64/7Server。
 
 $YUM6：表示存储库的软件包目录，通常是/var/cache/yum/x86_64/7Server/base。
+```
+
+### nexus 仓库管理
+
+上传 rpm包的时候, 创建hosts 仓库, 层级选择 0, 这样可以不用输入上传文件夹, 所有文件都在根目录, 生成的 repodata 也在根目录, 便于管理
+
+```text
+[baseos]
+name=Rocky Linux $releasever - BaseOS
+baseurl=http://192.168.3.12/repository/yum-hylink/
+enabled=1
+#如果校验不通过, 关闭这个选项
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rockyofficial
 ```
