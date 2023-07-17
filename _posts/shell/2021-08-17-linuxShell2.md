@@ -50,7 +50,8 @@ Host X2
 ### 隧道建立
 
 ```shell
-$ ssh -f -N -L localPort:remoteIp:remotePort user@server
+# 通过隧道主机建立本地端口到远程端口的隧道
+$ ssh -f -N -L localPort:remoteIp:remotePort user@channel_server
 ```
 
 ### 文件切割和解压缩
