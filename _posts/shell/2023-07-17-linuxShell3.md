@@ -20,7 +20,7 @@ openPay: true
 
 linux shell 可用代码片段
 
-###
+### 设置脚本的运行策略
 
 ```shell
 set +e # 关闭错误检查

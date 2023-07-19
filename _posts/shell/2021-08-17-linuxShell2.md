@@ -20,6 +20,12 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 单独为防火墙添加规则
+
+```shell
+$ firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.99.99" port port="5432" protocol="tcp" accept'
+```
+
 ### IO 和网络监控
 
 ```shell
