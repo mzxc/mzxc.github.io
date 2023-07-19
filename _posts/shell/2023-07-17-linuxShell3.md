@@ -20,6 +20,15 @@ openPay: true
 
 linux shell 可用代码片段
 
+###
+
+```shell
+set +e # 关闭错误检查
+set +u # 关闭未定义变量检查
+set -o pipefail # 管道中的任何命令失败都将导致管道的返回值为非零值
+set -euo pipefail # x:打印脚本  e:非零退出  u:除了$*和$@, 未定义变量引用既是错误 pipefail:命令失败的返回码作为管道返回码(默认是最后一条 shell)
+```
+
 ### shell 引入文件
 
 ```shell
@@ -68,8 +77,6 @@ esac
 help() {
     awk -F'### ' '/^###/ { print $2 }' "$0"
 }
-
-#set -euo pipefail # x:打印脚本  e:非零退出  u:除了$*和$@, 未定义变量引用既是错误 pipefail:命令失败的返回码作为管道返回码(默认是最后一条 shell)
 
 set -x
 
