@@ -23,25 +23,6 @@ openPay: true
 ### 单独为防火墙添加规则
 
 ```shell
-# rule <rule-options> [action <action-options>]
-# <rule-options> 是规则的条件部分，用于指定匹配规则的条件，例如源 IP、目标 IP、端口、协议等。
-# <action-options> 是规则的动作部分，用于指定规则匹配时所执行的动作，例如接受、拒绝、重定向等。
-
-# <rule-options>
-# family=<ipv4|ipv6>：指定规则的 IP 版本，可以是 IPv4 或 IPv6。
-# source address=<address>：指定源 IP 地址。
-# destination address=<address>：指定目标 IP 地址。
-# source port=<port>：指定源端口。
-# destination port=<port>：指定目标端口。
-# protocol=<protocol>：指定协议，如 tcp、udp、icmp 等。
-
-# <action-options>
-# accept：接受匹配的流量。
-# reject：拒绝匹配的流量。
-# drop：丢弃匹配的流量。
-# redirect to-port=<port>：将匹配的流量重定向到指定的端口。
-
-$ firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.99.99" port port="5432" protocol="tcp" accept'
 ```
 
 ### IO 和网络监控
@@ -115,22 +96,6 @@ $ echo ${string::-1} #输出 Hello, World
 ```shell
 $ ip addr | awk '/^[0-9]+: / {}; /inet.*global/ {print gensub(/(.*)\/(.*)/, "\\1", "g", $2)}' | awk 'NR==1{print}'
 ```
-
-### iptables
-
-iptables -> tables -> chains -> rules
-
-iptables 有四张默认表: filter mangle nat origin, filter 是我们常用的表, 也是默认的操作表, 其内的 INPUT 和 OUTPUT 是常用链
-
-```shell
-# 在 INPUT 链中添加 网卡 eth0 tcp 协议 22 端口的规则为放行
-$ iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
-# 在 INPUT 中添加丢弃其他包, 应放在 INPUT 最后一条
-$ iptables -A INPUT -j DROP
-# 查看所有链的 rules
-$ iptables -L
-```
-
 
 ### watch
 ```shell
