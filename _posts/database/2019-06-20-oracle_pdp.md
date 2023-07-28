@@ -100,3 +100,33 @@ APPEND:保持现有数据不变，导入源数据
 TRUNCATE:删掉现有数据，导入源数据
 
 REPLACE:删掉现有表，并重建，导入源数据
+
+# 2023-07-28 使用 imp 导入数据
+
+// 登录 sqlplus
+```shell
+$ sqlplus sys/oracle as sysdba;
+```
+
+```sql
+// 创建表空间
+create tablespace GOMYCK datafile '/home/gomyck/db' size 1500M autoextend on next 5M maxsize 3000M;
+
+// 给 SYSTEM 表空间扩容
+ALTER TABLESPACE SYSTEM ADD DATAFILE '/home/gomyck/file.dbf' SIZE 5G;
+
+// 创建用户
+create user gomyck identified by 'xxxxxx';
+
+// 给用户分配表空间
+alter gomyck quota unlimited on GOMYCK;
+
+// 给用户授权角色
+grant connect, resource to gomyck;
+```
+
+```shell
+// 执行导入
+$ imp gomyck/hy123123 fromuser=HIT_HQDF touser=gomyck file=/root/temp/20230529.dmp
+```
+
