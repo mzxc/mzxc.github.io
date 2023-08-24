@@ -20,6 +20,23 @@ openPay: true
 
 linux shell 可用代码片段
 
+### 镜像下载
+
+```shell
+#! /bin/bash
+mirror=$2
+if [ -z $2 ];then
+    stty erase '^H'
+    read -p "输入加速镜像地址: " mirror
+fi
+echo "开始下载镜像: $1"
+IMAGE_NAME=$1
+IFS="/" read -ra image_arr <<< "${IMAGE_NAME}"
+echo "加速镜像为: ${mirror}/${image_arr[1]}/${image_arr[2]}"
+docker pull "${mirror}/${image_arr[1]}/${image_arr[2]}"
+docker tag "${mirror}/${image_arr[1]}/${image_arr[2]}" ${IMAGE_NAME}
+```
+
 ### 设置脚本的运行策略
 
 ```shell
