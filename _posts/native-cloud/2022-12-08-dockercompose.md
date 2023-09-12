@@ -21,11 +21,12 @@ openPay: true
 参考示例
 
 ```yaml
-version: '3.1' # 指定 compose 文件的版本
-  services:    # 定义所有的 service 信息, services 下面的第一级别的 key 既是一个 service 的名称
+# 指定 compose 文件的版本
+version: "3.1"
+  services: # 定义所有的 service 信息, services 下面的第一级别的 key 既是一个 service 的名称
     gomyck:
       # 指定包含构建上下文的路径, 或作为一个对象，该对象具有 context 和指定的 dockerfile 文件以及 args 参数值
-      build: ./gomyck(可以不写)
+      build: ./gomyck     # context: ./gomyck # context: 指定 Dockerfile 文件所在的路径(可以不写)
         context: ./gomyck # context: 指定 Dockerfile 文件所在的路径
         dockerfile: xxx   # dockerfile: 指定 context 指定的目录下面的 Dockerfile 的名称(默认为 Dockerfile)
         args:             # args: Dockerfile 在 build 过程中需要的参数 (等同于 docker container build --build-arg 的作用)
@@ -37,16 +38,25 @@ version: '3.1' # 指定 compose 文件的版本
       command: echo 123   # 覆盖容器启动后默认执行的命令, 支持 shell 格式和 [] 格式
       container_name: xxx # 指定容器的名称 (等同于 docker run --name 的作用)
       restart: no|always|on-failure|unless-stopped               # 定义容器重启策略(在使用 swarm 部署时将忽略该选项, 在 swarm 使用 restart_policy 代替 restart)
-      depends_on: # 定义容器启动顺序 (此选项解决了容器之间的依赖关系， 此选项在 v3 版本中 使用 swarm 部署时将忽略该选项)
+      domainname: example.com
+      working_dir: /app
+      hostname: my-hostname # 定义容器的主机名
+      privileged: true      # 定义容器启动时是否以特权模式运行
+      read_only: true       # 定义容器内部应用程序只读 (等同于 docker run --read-only 的作用)
+      shm_size: 64M         # 设置容器 /dev/shm 分区的大小
+      tty: true             # 定义容器启动时是否以终端模式运行
+      stdin_open: true      # 定义容器启动时是否打开 stdin (等同于 docker run --interactive 的作用)
+      user: 1001:1001
+      depends_on:           # 定义容器启动顺序 (此选项解决了容器之间的依赖关系， 此选项在 v3 版本中 使用 swarm 部署时将忽略该选项)
         - db
         - redis
-      dns: # 设置 DNS 地址(等同于 docker run --dns 的作用)
+      dns:                  # 设置 DNS 地址(等同于 docker run --dns 的作用)
         - 8.8.8.8
         - 114.114.114.114
-      dns_search: # 设置 DNS 搜索域(等同于 docker run --dns-search 的作用)
+      dns_search:           # 设置 DNS 搜索域(等同于 docker run --dns-search 的作用)
         - dc1.example.com
         - dc2.example.com
-      volumes: # 定义容器和宿主机的卷映射关系, 其和 networks 一样可以位于 services 键的二级键和 compose 顶级键, 如果需要跨服务间使用则在顶级键定义, 在 services 中引用
+      volumes:              # 定义容器和宿主机的卷映射关系, 其和 networks 一样可以位于 services 键的二级键和 compose 顶级键, 如果需要跨服务间使用则在顶级键定义, 在 services 中引用
         - /var/lib/mysql              # 映射容器内的 /var/lib/mysql 到宿主机的一个随机目录中
         - /opt/data:/var/lib/mysql    # 映射容器内的 /var/lib/mysql 到宿主机的 /opt/data
         - ./cache:/tmp/cache          # 映射容器内的 /var/lib/mysql 到宿主机 compose 文件所在的位置
@@ -107,14 +117,14 @@ version: '3.1' # 指定 compose 文件的版本
       #network_mode: "service:[service name]"
       #network_mode: "container:[container name/id]"
       network_mode: bridge          # 指定网络模式 (等同于 docker run --net 的作用, 在使用 swarm 部署时将忽略该选项)
-      networks:              # 将容器加入指定网络 (等同于 docker network connect 的作用), networks 可以位于 compose 文件顶级键和 services 键的二级键
+      networks:                     # 将容器加入指定网络 (等同于 docker network connect 的作用), networks 可以位于 compose 文件顶级键和 services 键的二级键
         gomyck:
-          aliases:           # 同一网络上的容器可以使用服务名称或别名连接到其中一个服务的容器
+          aliases:                  # 同一网络上的容器可以使用服务名称或别名连接到其中一个服务的容器
             - xxx
-          ipv4_address: 172.111.111.111      # IP V4 格式
+          ipv4_address: 172.111.111.111         # IP V4 格式
           ipv6_address: 2001:3984:3989::10      # IP V6 格式
-      pid: 'host'           # 共享宿主机的 进程空间(PID)
-      ports:                 # 建立宿主机和容器之间的端口映射关系, ports 支持两种语法格式
+      pid: 'host'                           # 共享宿主机的 进程空间(PID)
+      ports:                                # 建立宿主机和容器之间的端口映射关系, ports 支持两种语法格式
         - "3000"                            # 暴露容器的 3000 端口, 宿主机的端口由 docker 随机映射一个没有被占用的端口
         - "3000-3005"                       # 暴露容器的 3000 到 3005 端口, 宿主机的端口由 docker 随机映射没有被占用的端口
         - "8000:8000"                       # 容器的 8000 端口和宿主机的 8000 端口建立映射关系
@@ -122,10 +132,10 @@ version: '3.1' # 指定 compose 文件的版本
         - "127.0.0.1:8001:8001"             # 指定映射宿主机的指定地址的
         - "127.0.0.1:5000-5010:5000-5010"
         - "6060:6060/udp"                   # 指定协议
-        - target: 80                    # 容器端口
-          published: 8080               # 宿主机端口
-          protocol: tcp                 # 协议类型
-          mode: host                    # host 在每个节点上发布主机端口,  ingress 对于群模式端口进行负载均衡
+        - target: 80                        # 容器端口
+          published: 8080                   # 宿主机端口
+          protocol: tcp                     # 协议类型
+          mode: host                        # host 在每个节点上发布主机端口,  ingress 对于群模式端口进行负载均衡
 
       ###############不常用的参数###############
       ###############不常用的参数###############
@@ -184,19 +194,19 @@ version: '3.1' # 指定 compose 文件的版本
         restart_policy:
           # 定义容器重启策略(接受三个参数) 不尝试重启|只有当容器内部应用程序出现问题才会重启|无论如何都会尝试重启(默认)
           condition: none|on-failure|any
-          delay: 5                 # 尝试重启的间隔时间(默认为 0s)
-          max_attempts: 3          # 尝试重启次数(默认一直尝试重启)
-          window: 10               # 检查重启是否成功之前的等待时间(即如果容器启动了, 隔多少秒之后去检测容器是否正常, 默认 0s)
-        update_config:             # 用于配置滚动更新配置
-          parallelism: 1           # 一次性更新的容器数量
-          delay: 1s                # 更新一组容器之间的间隔时间
+          delay: 5                  # 尝试重启的间隔时间(默认为 0s)
+          max_attempts: 3           # 尝试重启次数(默认一直尝试重启)
+          window: 10                # 检查重启是否成功之前的等待时间(即如果容器启动了, 隔多少秒之后去检测容器是否正常, 默认 0s)
+        update_config:              # 用于配置滚动更新配置
+          parallelism: 1            # 一次性更新的容器数量
+          delay: 1s                 # 更新一组容器之间的间隔时间
           failure_action: continue|rollback|pause         # 定义更新失败的策略 继续更新 回滚更新 暂停更新(默认)
           monitor: 5s               # 每次更新后的持续时间以监视更新是否失败(单位: ns|us|ms|s|m|h) (默认为0)
           max_failure_ratio: 0.9    # 回滚期间容忍的失败率(默认值为0)
           order: stop-first|start-first # v3.4 版本中新增的参数, 回滚期间的操作顺序 旧任务在启动新任务之前停止(默认) 首先启动新任务, 并且正在运行的任务暂时重叠
-        rollback_config:       # v3.7 版本中新增的参数, 用于定义在 update_config 更新失败的回滚策略
-          parallelism: 1       # 一次回滚的容器数, 如果设置为0, 则所有容器同时回滚
-          delay: 1s            # 每个组回滚之间的时间间隔(默认为0)
+        rollback_config:            # v3.7 版本中新增的参数, 用于定义在 update_config 更新失败的回滚策略
+          parallelism: 1            # 一次回滚的容器数, 如果设置为0, 则所有容器同时回滚
+          delay: 1s                 # 每个组回滚之间的时间间隔(默认为0)
           failure_action: continue|pause # 定义回滚失败的策略  继续回滚  暂停回滚
           monitor: 1s               # 每次回滚任务后的持续时间以监视失败(单位: ns|us|ms|s|m|h) (默认为0)
           max_failure_ratio: 0.9    # 回滚期间容忍的失败率(默认值0)
@@ -216,14 +226,14 @@ networks: # 定义 networks 信息
     ipam:                  # 自定义 IPAM 配置. 这是一个具有多个属性的对象, 每个属性都是可选的
       driver: default      # IPAM 驱动程序, bridge 或者 default
       config:              # 配置项
-        subnet: 172.28.0.0/16   # CIDR格式的子网，表示该网络的网段
+        subnet: 172.28.0.0/16    # CIDR格式的子网，表示该网络的网段
     external: true               # 外部网络, 如果设置为 true 则 docker-compose up 不会尝试创建它, 如果它不存在则引发错误
     name: gomyck-network         # v3.5 以上版本, 为此网络设置名称
 
 volumes:
-  mydata:                      # 定义在 volume, 可在所有服务中调用
+  mydata:                        # 定义在 volume, 可在所有服务中调用
     name: xxxxxxx
-    external: true             # 如果设置为true，则指定该卷是在 Compose 之外创建的
+    external: true               # 如果设置为true，则指定该卷是在 Compose 之外创建的
     labels:
       - xxx: xxx
     driver_opts:
@@ -231,10 +241,6 @@ volumes:
       o: "addr=10.40.0.199,nolock,soft,rw"
       device: ":/docker/example"
 
-
-# 其他选项：
-# domainname, hostname, ipc, mac_address, privileged, read_only, shm_size, stdin_open, tty, user, working_dir
-# 上面这些选项都只接受单个值和 docker run 的对应参数类似
 
 # 对于值为时间的可接受的值：
 #   2.5s
