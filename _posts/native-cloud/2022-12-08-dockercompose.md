@@ -18,7 +18,7 @@ author: gomyck
 openPay: true
 ---
 
-参考示例
+# 参考示例
 
 ```yaml
 # 指定 compose 文件的版本
@@ -241,24 +241,15 @@ volumes:
       o: "addr=10.40.0.199,nolock,soft,rw"
       device: ":/docker/example"
 
-
-# 对于值为时间的可接受的值：
-#   2.5s
-#   10s
-#   1m30s
-#   2h32m
-#   5h34m56s
-#   时间单位: us, ms, s, m， h
-# 对于值为大小的可接受的值：
-#   2b
-#   1024kb
-#   2048k
-#   300m
-#   1gb
-#   单位: b, k, m, g 或者 kb, mb, gb
 ```
 
+## 对于值为时间的可接受的值：
+- 时间单位: us, ms, s, m， h
+## 对于值为大小的可接受的值：
+- 数据单位: b, k, m, g 或者 kb, mb, gb
+
 **可以使用 $VARIABLE 或者 ${VARIABLE} 来置换变量**
+
 ```text
 ${VARIABLE:-default}VARIABLE在环境中未设置或为空时设置为default。
 
