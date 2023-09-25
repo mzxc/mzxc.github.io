@@ -20,6 +20,16 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### gzip
+
+```shell
+# 保留源文件的压缩
+$ gzip –c filename > filename.gz
+
+# 保留原文件的解压
+$ gunzip –c filename.gz > filename
+```
+
 ### 单独为防火墙添加规则
 
 ```shell
