@@ -83,7 +83,13 @@ chkconfig --levels 245 ck.sh off
 
 ### 使用 systemd 配置服务单元实现开机自启
 
-编写 xxx.service 文件, 放在 /etc/systemd/system/ 下
+编写 xxx.service 文件, 放在 /etc/systemd/system/ 下 (系统管理员自定义的服务单元)
+
+user 文件夹是用户相关的服务单元, 在启动时 需要加 --user
+```text
+$ systemctl --user
+```
+lib systemd 文件夹存放 **系统发行者** 或 **系统安装的软件** 自动管理的服务单元配置文件
 
 ```text
 [Unit]
