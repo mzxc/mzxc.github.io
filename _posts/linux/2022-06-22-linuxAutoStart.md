@@ -81,6 +81,38 @@ chkconfig --list ck.sh
 #只要运行级别3启动, 其他都关闭
 chkconfig --levels 245 ck.sh off
 
+### 使用 systemd 配置服务单元实现开机自启
 
+编写 xxx.service 文件, 放在 /etc/systemd/system/ 下
 
+```text
+[Unit]
+Description=My Custom Service
+Documentation=https://docs.docker.com
+After=network.target
+Wants=network-online.target
+Requires=docker.socket containerd.servic
+
+[Service]
+# simple： 默认值。使用这个类型时，systemd假定服务的主要进程会一直运行，直到服务结束。systemd不会尝试重新启动服务的主进程。
+# forking：适用于服务的主进程会在启动后以分离的子进程方式运行。systemd会监视主进程，并尝试重新启动服务，如果主进程退出，它将认为服务已经停止。这对于许多传统的守护进程非常有用。
+# oneshot：表示服务的主进程只会运行一次，然后服务就会被认为已经完成。这适用于需要在系统启动时执行一次性任务的服务。
+# notify： 适用于服务的主进程会通过向systemd发送通知（通常是sd_notify函数）来表明它已经准备好接受连接。这允许systemd等待，直到服务准备就绪。这在需要等待服务初始化完成的情况下很有用。
+# dbus：   适用于服务通过DBus系统总线提供API的情况。systemd会等待服务在DBus上注册，以确保它已经准备就绪。
+Type=simple
+ExecStart=/path/to/your/command                     # 指定要运行的命令或脚本的完整路径
+User=root                                           # 可选：指定运行服务的用户
+Group=root                                          # 可选：指定运行服务的用户组
+WorkingDirectory=/path/to/your/working-directory    # 可选：指定工作目录
+Restart=on-failure                                  # 可选：定义服务的重启行为 always
+RestartSec=3                                        # 可选：定义在重新启动之前的延迟时间
+StartLimitInterval=60s                              # 可选: 60s内重启一次
+LimitNOFILE=infinity                                # 可选: 最大描述符数
+LimitNPROC=infinity                                 # 可选: 最大进程数
+LimitCORE=infinity                                  # 可选: 最大核心数
+TasksMax=infinity                                   # 可选: 最大任务数(不支持就注释掉)
+
+[Install]
+WantedBy=multi-user.target  # 定义服务的启动级别
+```
 
