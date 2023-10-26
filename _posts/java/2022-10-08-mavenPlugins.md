@@ -22,6 +22,74 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 
 在工作当中, 由于各种框架需要, 环境需要, 平台需要, 要求我们使用 maven 打包出各种类型的 jar 文件, 通过下述案例, 可针对当前应用场景使用不同方式的打包技术
 
+### 需要给 jar 包加 git 版本号
+
+在 pom 文件里可以使用下面的任意属性, 比如给 version 标签增加 git 版本号
+
+```text
+<version>1.2.1-${git.commit.id.abbrev}</version>
+```
+
+```json
+{
+  "git.branch" : "master",
+  "git.build.host" : "localhost",
+  "git.build.time" : "2019-08-28 17:05:33",
+  "git.build.user.email" : "xxx@163.com",
+  "git.build.user.name" : "xxx",
+  "git.build.version" : "1.0-SNAPSHOT",
+  "git.closest.tag.commit.count" : "",
+  "git.closest.tag.name" : "",
+  "git.commit.id" : "437e26172c51cab8fc88ea585145797df222fbb2",
+  "git.commit.id.abbrev" : "437e261",
+  "git.commit.id.describe" : "437e261-dirty",
+  "git.commit.id.describe-short" : "437e261-dirty",
+  "git.commit.message.full" : "获取版本信息",
+  "git.commit.message.short" : "获取版本信息",
+  "git.commit.time" : "2019-08-27 19:07:03",
+  "git.commit.user.email" : "xxx@163.com",
+  "git.commit.user.name" : "xxx",
+  "git.dirty" : "true",
+  "git.remote.origin.url" : "http://git.xxx.cn/gitlab/git/xxx.git",
+  "git.tags" : "",
+  "git.total.commit.count" : "3324"
+}
+```
+
+```xml
+<plugin>
+  <groupId>pl.project13.maven</groupId>
+  <artifactId>git-commit-id-plugin</artifactId>
+  <version>2.2.5</version>
+  <executions>
+    <execution>
+      <id>get-the-git-infos</id>
+      <phase>
+        prepare-package
+      </phase>
+      <goals>
+        <goal>revision</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+    <prefix>git</prefix>
+    <verbose>false</verbose>
+    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+    <format>json</format>
+    <abbrevLength>7</abbrevLength>
+    <gitDescribe>
+      <skip>false</skip>
+      <always>false</always>
+      <dirty>-dirty</dirty>
+    </gitDescribe>
+  </configuration>
+</plugin>
+```
+
 ### 场景 1: docker 容器需要的 jar
 
 首先保证 docker 在宿主机上的环境是一样的, 其次, 在宿主机上建设统一路径的文件夹, 如: /usr/share/gomyck/xxx
