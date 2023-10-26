@@ -24,10 +24,10 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 
 ### 需要给 jar 包加 git 版本号
 
-在 pom 文件里可以使用下面的任意属性, 比如给 version 标签增加 git 版本号
+在 pom 文件里可以使用下面的任意属性, 比如给 finalName 标签增加 git 版本号
 
 ```text
-<version>1.2.1-${git.commit.id.abbrev}</version>
+<finalName>${artifactId}-${version}-${git.commit.id.abbrev}</finalName>
 ```
 
 ```json
@@ -37,7 +37,7 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
   "git.build.time" : "2019-08-28 17:05:33",
   "git.build.user.email" : "xxx@163.com",
   "git.build.user.name" : "xxx",
-  "git.build.version" : "1.0-SNAPSHOT",
+  "git.build.version" : "1.1.1",
   "git.closest.tag.commit.count" : "",
   "git.closest.tag.name" : "",
   "git.commit.id" : "437e26172c51cab8fc88ea585145797df222fbb2",
