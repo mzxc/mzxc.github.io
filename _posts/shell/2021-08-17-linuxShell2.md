@@ -20,6 +20,21 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### tr 的使用
+
+```shell
+# 小写字母转大写
+$ tr 'a-z' 'A-Z'
+# 删除所有回车
+$ echo "Hello World" | tr -d '\r'
+# 字符替换
+echo "apple" | tr 'a' 'b'
+# 小写转大写, 大写转小写  两两相对
+echo "Hello World" | tr 'a-zA-Z' 'A-Za-z'
+# 只要在 a-z 里的重复字符, 都将替换成一个:  abc
+echo "aaabbbccc" | tr -s 'a-z'
+```
+
 ### gzip
 
 ```shell
@@ -28,11 +43,6 @@ $ gzip –c filename > filename.gz
 
 # 保留原文件的解压
 $ gunzip –c filename.gz > filename
-```
-
-### 单独为防火墙添加规则
-
-```shell
 ```
 
 ### IO 和网络监控
