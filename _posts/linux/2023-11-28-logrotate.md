@@ -29,8 +29,6 @@ logrotate 的配置文件在 /etc/logrotate.conf  以及  /etc/logrotate.d/
 ## /etc/logrotate.conf
 
 文件里不可以有注释!!!!!使用时把注释去掉!!!
-文件里不可以有注释!!!!!使用时把注释去掉!!!
-文件里不可以有注释!!!!!使用时把注释去掉!!!
 
 ```text  
 rotate 7                   # 保留7个旧日志文件
@@ -45,8 +43,6 @@ include /etc/logrotate.d/  # 包含其他配置文件
 
 ## /etc/logrotate.d/xx
 
-文件里不可以有注释!!!!!使用时把注释去掉!!!
-文件里不可以有注释!!!!!使用时把注释去掉!!!
 文件里不可以有注释!!!!!使用时把注释去掉!!!
 
 ```text
