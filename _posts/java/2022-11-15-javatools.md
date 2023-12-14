@@ -97,7 +97,7 @@ $ jmap -histo  [pid]
 #生成的文件可以使用jhat工具进行分析，在OOM（内存溢出）时，分析大对象，非常有用
 
 ```shell
-$ jmap -dump:live,format=b,file=data.hprof 2058
+$ jmap -dump:format=b,file=heapdump.hprof 1
 ```
 
 **通过使用如下参数启动JVM，也可以获取到dump文件**
