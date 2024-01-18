@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Maven 打包, 一文通透"
+title: "Maven 打包, 一文通透"
 crawlertitle: "Maven 打包, 一文通透"
 subtitle: "maven fatjar"
 ext: "install package plugins"
-date:  2022-10-08
+date: 2022-10-08
 header-style: img
 header-img: img/in-post/common-bg.jpg
 hidden: false
 published: true
 header-mask: 0.3
-tags: ['JAVA', '原创']
+tags: [ 'JAVA', '原创' ]
 musicUri: 1839119892
 musicTitle: My Way
 musicFrom: Cassette
@@ -20,7 +20,8 @@ openPay: true
 
 maven 各种打包姿势, 再也不用担心各种花样打包了
 
-在工作当中, 由于各种框架需要, 环境需要, 平台需要, 要求我们使用 maven 打包出各种类型的 jar 文件, 通过下述案例, 可针对当前应用场景使用不同方式的打包技术
+在工作当中, 由于各种框架需要, 环境需要, 平台需要, 要求我们使用 maven 打包出各种类型的 jar 文件, 通过下述案例,
+可针对当前应用场景使用不同方式的打包技术
 
 ### 需要给 jar 包加 git 版本号
 
@@ -32,31 +33,32 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 
 ```json
 {
-  "git.branch" : "master",
-  "git.build.host" : "localhost",
-  "git.build.time" : "2019-08-28 17:05:33",
-  "git.build.user.email" : "xxx@163.com",
-  "git.build.user.name" : "xxx",
-  "git.build.version" : "1.1.1",
-  "git.closest.tag.commit.count" : "",
-  "git.closest.tag.name" : "",
-  "git.commit.id" : "437e26172c51cab8fc88ea585145797df222fbb2",
-  "git.commit.id.abbrev" : "437e261",
-  "git.commit.id.describe" : "437e261-dirty",
-  "git.commit.id.describe-short" : "437e261-dirty",
-  "git.commit.message.full" : "获取版本信息",
-  "git.commit.message.short" : "获取版本信息",
-  "git.commit.time" : "2019-08-27 19:07:03",
-  "git.commit.user.email" : "xxx@163.com",
-  "git.commit.user.name" : "xxx",
-  "git.dirty" : "true",
-  "git.remote.origin.url" : "http://git.xxx.cn/gitlab/git/xxx.git",
-  "git.tags" : "",
-  "git.total.commit.count" : "3324"
+  "git.branch": "master",
+  "git.build.host": "localhost",
+  "git.build.time": "2019-08-28 17:05:33",
+  "git.build.user.email": "xxx@163.com",
+  "git.build.user.name": "xxx",
+  "git.build.version": "1.1.1",
+  "git.closest.tag.commit.count": "",
+  "git.closest.tag.name": "",
+  "git.commit.id": "437e26172c51cab8fc88ea585145797df222fbb2",
+  "git.commit.id.abbrev": "437e261",
+  "git.commit.id.describe": "437e261-dirty",
+  "git.commit.id.describe-short": "437e261-dirty",
+  "git.commit.message.full": "获取版本信息",
+  "git.commit.message.short": "获取版本信息",
+  "git.commit.time": "2019-08-27 19:07:03",
+  "git.commit.user.email": "xxx@163.com",
+  "git.commit.user.name": "xxx",
+  "git.dirty": "true",
+  "git.remote.origin.url": "http://git.xxx.cn/gitlab/git/xxx.git",
+  "git.tags": "",
+  "git.total.commit.count": "3324"
 }
 ```
 
 ```xml
+
 <plugin>
   <groupId>pl.project13.maven</groupId>
   <artifactId>git-commit-id-plugin</artifactId>
@@ -97,6 +99,7 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 使用下述插件打包, 可把当前工程打成分散的小包:
 
 ```xml
+
 <plugin>
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>appassembler-maven-plugin</artifactId>
@@ -159,9 +162,11 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 </plugin>
 ```
 
-<a href="https://www.mojohaus.org/appassembler/appassembler-maven-plugin/assemble-mojo.html" style="color: blue;" target="_blank">详细文档</a>
+<a href="https://www.mojohaus.org/appassembler/appassembler-maven-plugin/assemble-mojo.html" style="color: blue;" target="_blank">
+详细文档</a>
 
-<a href="https://www.mojohaus.org/appassembler/appassembler-maven-plugin/usage-program-jvmsettings.html" style="color: blue;" target="_blank">JVM设置</a>
+<a href="https://www.mojohaus.org/appassembler/appassembler-maven-plugin/usage-program-jvmsettings.html" style="color: blue;" target="_blank">
+JVM设置</a>
 
 生成的目录结构:
 
@@ -173,7 +178,8 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
   --lib   jar 包(所有的依赖和当前工程, 均打成小 jar)
 ```
 
-**使用该方式打包的 jar, 通过与jre 镜像的约定规则, 自动调用 start.sh完成服务的启动, 以后每次升级, 只需要替换 lib 中的工程 jar 就可以, 不需要替换额外的依赖 jar, 每次升级只需要传几百KB的文件即可**
+**使用该方式打包的 jar, 通过与jre 镜像的约定规则, 自动调用 start.sh完成服务的启动, 以后每次升级, 只需要替换 lib 中的工程
+jar 就可以, 不需要替换额外的依赖 jar, 每次升级只需要传几百KB的文件即可**
 
 ### 场景 2: flink 需要的 jar
 
@@ -245,15 +251,19 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
 </plugin>
 ```
 
-这种方式打的 jar 包是 fatjar, 并且会排除 flink runtime 中存在的依赖, 并且这种依赖排除是传递的: 比如排除的是 org.apache.flink:flink-clients, 那么这个依赖 pom 文件中的所有依赖将会被排除
+这种方式打的 jar 包是 fatjar, 并且会排除 flink runtime 中存在的依赖, 并且这种依赖排除是传递的: 比如排除的是
+org.apache.flink:flink-clients, 那么这个依赖 pom 文件中的所有依赖将会被排除
 
-相反的例子就是使用  maven-dependence 插件排除依赖, org.apache.flink:flink-clients 仅仅会排除自身, 但这个依赖 pom 文件中描述的其他依赖, 将会被打进 fatjar 中
+相反的例子就是使用 maven-dependence 插件排除依赖, org.apache.flink:flink-clients 仅仅会排除自身, 但这个依赖 pom
+文件中描述的其他依赖, 将会被打进 fatjar 中
 
-**上述例子可以打包出 fatjar, 但不支持在工程中使用 spring 容器, 读取不到配置文件, 没找到原因, 而且这种打包方式会把所有的依赖转换成 class, 与工程文件混在一起, 不好维护**
+**上述例子可以打包出 fatjar, 但不支持在工程中使用 spring 容器, 读取不到配置文件, 没找到原因, 而且这种打包方式会把所有的依赖转换成
+class, 与工程文件混在一起, 不好维护**
 
 最后使用下述的方式解决 fatjar 打包问题
 
 ```xml
+
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-dependency-plugin</artifactId>
@@ -278,64 +288,69 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
   </executions>
 </plugin>
 
-<!-- 这个插件没啥用, 主要是打单体 jar 时, 用一用 -->
-<!--<plugin>-->
-<!--  <groupId>org.apache.maven.plugins</groupId>-->
-<!--  <artifactId>maven-jar-plugin</artifactId>-->
-<!--  <configuration>-->
-<!--    <classesDirectory>target/classes/</classesDirectory>-->
-<!--    <archive>-->
-<!--      &lt;!&ndash;生成的jar中，不要包含pom.xml和pom.properties这两个文件&ndash;&gt;-->
-<!--      <addMavenDescriptor>false</addMavenDescriptor>-->
-<!--      <manifest>-->
-<!--        <mainClass>com.gomyck.FlinkItApplication</mainClass>-->
-<!--        &lt;!&ndash; 打包时 MANIFEST.MF文件不记录的时间戳版本 &ndash;&gt;-->
-<!--        <useUniqueVersions>false</useUniqueVersions>-->
-<!--        <addClasspath>true</addClasspath>-->
-<!--        <classpathPrefix>lib/</classpathPrefix>-->
-<!--      </manifest>-->
-<!--      <manifestEntries>-->
-<!--        &lt;!&ndash;jar中的MANIFEST.MF文件ClassPath需要添加config目录才能读取到配置文件&ndash;&gt;-->
-<!--        <Class-Path>config/ .</Class-Path>-->
-<!--      </manifestEntries>-->
-<!--    </archive>-->
-<!--  </configuration>-->
-<!--</plugin>-->
+  <!-- 这个插件没啥用, 主要是打单体 jar 时, 用一用 -->
+  <!--<plugin>-->
+  <!--  <groupId>org.apache.maven.plugins</groupId>-->
+  <!--  <artifactId>maven-jar-plugin</artifactId>-->
+  <!--  <configuration>-->
+  <!--    <classesDirectory>target/classes/</classesDirectory>-->
+  <!--    <archive>-->
+  <!--      &lt;!&ndash;生成的jar中，不要包含pom.xml和pom.properties这两个文件&ndash;&gt;-->
+  <!--      <addMavenDescriptor>false</addMavenDescriptor>-->
+  <!--      <manifest>-->
+  <!--        <mainClass>com.gomyck.FlinkItApplication</mainClass>-->
+  <!--        &lt;!&ndash; 打包时 MANIFEST.MF文件不记录的时间戳版本 &ndash;&gt;-->
+  <!--        <useUniqueVersions>false</useUniqueVersions>-->
+  <!--        <addClasspath>true</addClasspath>-->
+  <!--        <classpathPrefix>lib/</classpathPrefix>-->
+  <!--      </manifest>-->
+  <!--      <manifestEntries>-->
+  <!--        &lt;!&ndash;jar中的MANIFEST.MF文件ClassPath需要添加config目录才能读取到配置文件&ndash;&gt;-->
+  <!--        <Class-Path>config/ .</Class-Path>-->
+  <!--      </manifestEntries>-->
+  <!--    </archive>-->
+  <!--  </configuration>-->
+  <!--</plugin>-->
 
 <plugin>
-  <artifactId>maven-antrun-plugin</artifactId>
-  <version>1.3</version>
-  <executions>
-    <execution>
-      <id>copy-lib-src-webapps</id>
-      <phase>install</phase>
-      <goals>
-        <goal>run</goal>
-      </goals>
-      <configuration>
-        <tasks>
-          <echo message="开始构建JAR包..."/>
-          <copydir dest="${project.build.directory}/${project.build.finalName}-final/lib" src="${project.build.directory}/lib/"/>
-          <copydir dest="${project.build.directory}/${project.build.finalName}-final/" src="${project.build.directory}/classes/"/>
-          <jar basedir="${project.build.directory}/${project.build.finalName}-final/" destfile="${project.build.directory}/${project.build.finalName}-final.jar">
-            <manifest>
-              <attribute name="Main-Class" value="com.gomyck.FlinkItApplication"/>
-            </manifest>
-          </jar>
-        </tasks>
-      </configuration>
-    </execution>
-  </executions>
+<artifactId>maven-antrun-plugin</artifactId>
+<version>1.3</version>
+<executions>
+  <execution>
+    <id>copy-lib-src-webapps</id>
+    <phase>install</phase>
+    <goals>
+      <goal>run</goal>
+    </goals>
+    <configuration>
+      <tasks>
+        <echo message="开始构建JAR包..."/>
+        <copydir dest="${project.build.directory}/${project.build.finalName}-final/lib"
+                 src="${project.build.directory}/lib/"/>
+        <copydir dest="${project.build.directory}/${project.build.finalName}-final/"
+                 src="${project.build.directory}/classes/"/>
+        <jar basedir="${project.build.directory}/${project.build.finalName}-final/"
+             destfile="${project.build.directory}/${project.build.finalName}-final.jar">
+          <manifest>
+            <attribute name="Main-Class" value="com.gomyck.FlinkItApplication"/>
+          </manifest>
+        </jar>
+      </tasks>
+    </configuration>
+  </execution>
+</executions>
 </plugin>
 ```
 
-<a href="https://maven.apache.org/plugins/maven-antrun-plugin/usage.html" style="color: blue;" target="_blank">ANT 使用<a>
+<a href="https://maven.apache.org/plugins/maven-antrun-plugin/usage.html" style="color: blue;" target="_blank">ANT
+使用<a>
 
 <a href="https://ant.apache.org/manual/tasksoverview.html" style="color: blue;" target="_blank">ANT 使用<a>
 
 ### 其他 fatjar 打包方式:
 
 ```xml
+
 <plugin>
   <artifactId>maven-assembly-plugin</artifactId>
   <configuration>
@@ -358,5 +373,54 @@ maven 各种打包姿势, 再也不用担心各种花样打包了
       </goals>
     </execution>
   </executions>
+</plugin>
+```
+
+### groovy 打包方式
+
+```xml
+
+<dependency>
+  <groupId>org.codehaus.groovy</groupId>
+  <artifactId>groovy-all</artifactId>
+  <version>3.0.17</version>
+  <type>pom</type>
+</dependency>
+
+<plugin>
+  <groupId>org.codehaus.gmavenplus</groupId>
+  <artifactId>gmavenplus-plugin</artifactId>
+  <version>1.7.1</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>addSources</goal>
+        <goal>addTestSources</goal>
+        <goal>generateStubs</goal>
+        <goal>compile</goal>
+        <goal>generateTestStubs</goal>
+        <goal>compileTests</goal>
+        <goal>removeStubs</goal>
+        <goal>removeTestStubs</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <sources>
+      <!-- 在此节点下配置源码目录,可配置多个 -->
+      <source>
+        <directory>${project.basedir}/src/main/groovy</directory>
+        <includes>
+          <include>**/*.groovy</include>
+        </includes>
+      </source>
+      <source>
+        <directory>${project.basedir}/src/additionalGroovy</directory>
+        <includes>
+          <include>**/*.groovy</include>
+        </includes>
+      </source>
+    </sources>
+  </configuration>
 </plugin>
 ```
