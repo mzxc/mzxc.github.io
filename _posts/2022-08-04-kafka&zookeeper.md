@@ -49,16 +49,25 @@ kafkaImage: debezium/kafka:1.7.2.Final
 
 ```properties
 # 修改配置
-listeners=SASL_PLAINTEXT://ip:9092
-advertised.listeners=SASL_PLAINTEXT://ip:9092
+
+# debezium/kafka 这个镜像每次都会重置 listeners和advertised.listeners为 PLAINTEXT://xxxxx, 代码里写死了, 所以监听器的名字必须叫 PLAINTEXT
+listeners=PLAINTEXT://ip:9092
+advertised.listeners=PLAINTEXT://ip:9092
 # 新增配置
+
+# 这个配置是监听器使用的鉴权安全协议, 如果需要开启鉴权, 必须要配置
+listener.security.protocol.map=PLAINTEXT:SASL_PLAINTEXT
+#inter broker 配置是 broker 内部通讯监听器的名称, 这个是必须要配置的(我这里配置的监听器的名字是PLAINTEXT, 因为debezium/kafka这个镜像的原因)
+inter.broker.listener.name=PLAINTEXT
 super.users=User:kafka
+# 开启 zookeeper 鉴权时这个为 true
 zookeeper.set_acl=true
 sasl.enabled.mechanisms = PLAIN
 allow.everyone.if.no.acl.found=true
 sasl.mechanism.inter.broker.protocol = PLAIN
-security.inter.broker.protocol = SASL_PLAINTEXT
-authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+# 1.x版本用这个
+# authorizer.class.name=kafka.security.auth.SimpleAclAuthorizer
+authorizer.class.name=kafka.security.authorizer.AclAuthorizer
 ```
 
 ##### 2.新增 kafka 鉴权文件: kafka_server_jaas.conf
@@ -71,6 +80,8 @@ KafkaServer {
    user_admin="gomyck_admin"
    user_kafka="gomyck_kafka";
 };
+
+# 不开启 zookeeper 这个就删掉 后面的配置也可以忽略了
 Client {
    org.apache.kafka.common.security.plain.PlainLoginModule required
    username="kafka"
