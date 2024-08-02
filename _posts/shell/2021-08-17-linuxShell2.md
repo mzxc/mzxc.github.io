@@ -3,7 +3,7 @@ layout: post
 title:  "Linux command archived ii"
 crawlertitle: "Linux command archived ii"
 subtitle: "Linux Shell"
-ext: "指令集 复杂 精简 iptables watch dd awk"
+ext: "指令集 复杂 精简 iptables watch dd awk sed"
 date:  2021-08-17
 header-style: img
 header-img: img/in-post/common-bg.jpg
@@ -189,7 +189,20 @@ $ sed '10a world' file.txt
 # 多重指令
 $ sed -e '/^foo/d' -e 's/bar/baz/g' file.txt
 $ sed -e '/^foo/d; s/bar/baz/g' file.txt
-
+# 替换 clusterDNS
+# n; 是处理下一行
+# s/value1/value2/ 是替换
+$ sed -i '/^clusterDNS:/ {n; s/.*/- 10.233.0.4/;}' kubelet-config.yaml
+# 删除匹配行
+sed '/pattern/{d;}' filename
+# 在匹配行后追加
+sed '/pattern/{a\
+new line
+;}' filename
+# 在匹配行前追加
+sed '/pattern/{i\
+new line
+;}' filename
 ```
 
 ### sshpass 可以为后面的 shell 提供密码服务
