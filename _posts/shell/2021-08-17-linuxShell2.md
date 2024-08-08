@@ -3,7 +3,7 @@ layout: post
 title:  "Linux command archived ii"
 crawlertitle: "Linux command archived ii"
 subtitle: "Linux Shell"
-ext: "指令集 复杂 精简 iptables watch dd awk sed"
+ext: "指令集 复杂 精简 iptables watch dd awk sed tr iperf3 gzip tar 跳板 隧道 split 带宽 网卡"
 date:  2021-08-17
 header-style: img
 header-img: img/in-post/common-bg.jpg
@@ -19,6 +19,34 @@ openPay: true
 ---
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
+
+### 压力测试
+
+```shell
+
+$ yum install -y epel-release && yum install stress -y
+
+# 两个进程  每个 300M 持续占用
+$ stress --vm 2 --vm-bytes 300M --vm-keep
+
+```
+
+### 带宽测试
+
+```shell
+
+$ yum install net-tools
+# 裸金属
+$ mii-tool -v enp129s0f0
+# 虚拟机
+$ ethtool ens192 | grep Speed
+
+$ yum install -y iperf3
+# 服务端(需要开启5021端口)
+$ iperf3 -s
+# 客户端
+$ iperf3 -c 192.168.xxx.xxx
+```
 
 ### tr 的使用
 
@@ -247,6 +275,7 @@ stat [file]
 
 ### 硬盘信息查看
 ```shell
+$ find / -type f -size +1G -exec du -h {} \;  #快速查找大于 1G 的文件信息
 $ df -hl  #查看当前可用硬盘空间
 $ du -Sh  #查看所有文件的大小
 $ du -sh  #查看当前文件大小
