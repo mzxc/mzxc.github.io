@@ -240,7 +240,12 @@ volumes:
       type: "nfs"
       o: "addr=10.40.0.199,nolock,soft,rw"
       device: ":/docker/example"
-
+  my_data_volume:
+    driver: local
+    driver_opts:
+      o: bind
+      device: /var/lib/data
+      type: none
 ```
 
 ## 对于值为时间的可接受的值：
