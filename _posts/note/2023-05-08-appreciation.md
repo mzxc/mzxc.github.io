@@ -21,8 +21,6 @@ sticky: true
 
 ---
 
-![1](https://gh.gomyck.com/https://raw.githubusercontent.com/mzxc/picx-images-hosting/master/20240911/1.13lq8358ar.jpg)
-
 记录一下平时看到的, 喜欢的诗词歌赋
 
 > 起伏峦头龙脉好，必有高人隐姓名
