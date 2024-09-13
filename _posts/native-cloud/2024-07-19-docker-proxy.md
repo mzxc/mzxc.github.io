@@ -26,8 +26,8 @@ $ mkdir -p /etc/systemd/system/docker.service.d
 
 $ cat << EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
 [Service]
-Environment="HTTP_PROXY=http://127.0.0.1:7890"
-Environment="HTTPS_PROXY=http://127.0.0.1:7890"
+Environment="HTTP_PROXY=http://proxy.mac.gomyck.com:7890"
+Environment="HTTPS_PROXY=http://proxy.mac.gomyck.com:7890"
 Environment="NO_PROXY=localhost,127.0.0.1,::1"
 EOF
 
