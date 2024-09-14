@@ -27,7 +27,7 @@ openPay: true
 使用下面的指令创建一个新的 builder, 默认的 default builder 只会构建当前系统的镜像
 ```shell
 #创建一个名为 ck 的 builder
-$ docker buildx create --name ck --use
+$ docker buildx create --name ck --use --driver-opt env.http_proxy=proxy.mac.gomyck.com:7890 --driver-opt env.https_proxy=proxy.mac.gomyck.com:7890
 #查看是否创建成功
 $ docker buildx ls
 ```
