@@ -34,7 +34,14 @@ $ docker buildx ls
 
 使用下述指令构建镜像，可以看到会构建多个平台的镜像
 ```shell
-$ docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t gomyck/ck:latest .
+# 打包成 tar (只能指定一种架构, 否则不支持 type=docker)
+$ docker buildx build --platform linux/amd64 -t gomyck/ck:v1.1.0-3.9.20 -t gomyck/ck:latest . --output type=docker,dest=img-amd64.tar
+
+# 打包成 tar (只能指定一种架构, 否则不支持 type=docker)
+$ docker buildx build --platform linux/arm64 -t gomyck/ck:v1.1.0-3.9.20 -t gomyck/ck:latest . --output type=docker,dest=img-arm64.tar
+
+# 打包并上传到 hub
+$ docker buildx build --platform linux/amd64,linux/arm64 -t gomyck/ck:v1.1.0-3.9.20 -t  gomyck/ck:latest . --push
 ```
 
 ## 参考
