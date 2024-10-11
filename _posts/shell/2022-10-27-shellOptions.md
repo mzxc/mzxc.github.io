@@ -2,7 +2,7 @@
 layout: post
 title:  "Shell 中$0 等占位符的使用"
 crawlertitle: "Shell 中$0 等占位符的使用"
-subtitle: "Linux Shell"
+subtitle: "Linux Shell 参数"
 ext: ""
 date:  2022-10-27
 header-style: img
