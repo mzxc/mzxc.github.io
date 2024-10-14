@@ -39,6 +39,7 @@ friends:
     { title: "C语言中文手册", href: "https://docs.kilvn.com/lcthw-zh/" },
     { title: "操作系统思考", href: "https://docs.kilvn.com/think-os-zh/" },
     { title: "语义化版本 2.0.0", href: "https://docs.kilvn.com/semver/" },
+    { title: "函数式编程指北", href: "https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/" },
   ]
 
 # Publish posts or collection documents with a future date. (预发布, 到时间自动显示)
