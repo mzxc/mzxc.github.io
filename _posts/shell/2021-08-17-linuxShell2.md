@@ -20,6 +20,19 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### nethogs  nload  网络监测
+
+nethogs 为进程级
+
+nload 为网卡级
+
+```shell
+# s: sort by SENT traffic
+# r: sort by RECEIVE traffic
+# m: switch between total (KB, B, MB) and KB/s mode
+$ nethogs -v 0
+````
+
 ### 压力测试
 
 ```shell
