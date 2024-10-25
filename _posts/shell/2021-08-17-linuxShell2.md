@@ -20,6 +20,12 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 磁盘分析
+
+```shell
+$ ncdu
+```
+
 ### nethogs  nload  网络监测
 
 nethogs 为进程级
