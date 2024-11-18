@@ -106,11 +106,15 @@ $ gpg --list-keys
 #  uid           [ 绝对 ] xxx (zhushi) <xxx@163.com>
 #  sub   rsa4096 2018-09-25 [E]
 
-$ gpg --keyserver hkp://pool.sks-keyservers.net --send-keys 秘钥ID
+$ gpg --keyserver hkps://keys.openpgp.org --send-keys 秘钥ID
 #发送你的公钥到秘钥仓库, 以后你的jar会使用私钥签名, maven中央仓库会去几个指定的秘钥仓库去找公钥来验证这个签名, 如果不上传是不能通过审核的
 
-$ gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 秘钥ID
+$ gpg --keyserver hkps://keys.openpgp.org --recv-keys 秘钥ID
 #验证你的公钥是否上传成功, 如果返回结果是 **未改变, 那就是成功了
+
+# 相关网站
+# https://keys.openpgp.org/
+# https://keyserver.ubuntu.com/
 ```
 
 **2021-05-26 补充**
