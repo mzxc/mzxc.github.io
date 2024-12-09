@@ -20,6 +20,12 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 查看是否支持虚拟化
+
+```shell
+$ egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+
 ### 磁盘分析
 
 ```shell
