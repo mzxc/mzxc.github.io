@@ -24,6 +24,8 @@ openPay: true
 
 ```shell
 $ egrep -c '(vmx|svm)' /proc/cpuinfo
+
+$ cat /proc/cpuinfo | grep -cE 'vmx|svm'
 ```
 
 ### 磁盘分析
