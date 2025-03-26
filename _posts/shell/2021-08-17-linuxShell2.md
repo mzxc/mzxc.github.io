@@ -20,6 +20,21 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### TCPDUMP 抓包
+
+```shell
+# 抓包可以使用 wireshark 分析
+$ tcpdump -i any host <dest_ip> and port <dest_port> -w kafka.pcap
+````
+
+### 网络连通性排查
+
+```shell
+# 使用 TCP 测试, 端口, 次数
+# mtr 测试, 只要 endpoint 不丢包, 中间节点丢包, 不能说明网络丢包
+$ mtr -T -P 9092 <kafka_ip> -c 100
+````
+
 ### 查看是否支持虚拟化
 
 ```shell
