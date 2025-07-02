@@ -20,6 +20,13 @@ openPay: true
 
 分享日常运维需要的 LINUX 命令, 归纳整理容易记忆理解
 
+### 遍历文件内容
+
+递归并打印行号文件名
+```shell
+$ grep -rnH -C 5 'DNS' ./
+```
+
 ### TCPDUMP 抓包
 
 ```shell
