@@ -22,6 +22,8 @@ openPay: true
 
 # 安装
 
+## redhat 系列系统
+
 ```shell
 # 安装 epel
 $ yum install -y epel-release
@@ -54,6 +56,42 @@ $ sudo systemctl enable xrdp
 # 添加防火墙
 $ sudo firewall-cmd --permanent --add-port=3389/tcp
 $ sudo firewall-cmd --reload
+```
+
+## debian 系列系统
+
+```shell
+#!/bin/bash
+# Ubuntu Desktop 一键安装 xrdp + Xfce（稳定远程桌面）
+
+set -e
+
+echo "==== 更新系统并安装必要软件 ===="
+sudo apt update
+sudo apt install -y xrdp xfce4 xfce4-goodies xorgxrdp dbus-x11
+
+echo "==== 禁用 Wayland ===="
+sudo sed -i 's/^#WaylandEnable=.*/WaylandEnable=false/' /etc/gdm3/custom.conf
+
+echo "==== 配置当前用户使用 Xfce 会话 ===="
+echo "startxfce4" > ~/.xsession
+chmod +x ~/.xsession
+
+echo "==== 修复权限问题 ===="
+sudo chown $USER:$USER ~/.Xauthority
+chmod 600 ~/.Xauthority
+
+echo "==== 重启 xrdp 服务 ===="
+sudo systemctl enable xrdp --now
+sudo systemctl restart xrdp
+
+echo "==== 清理残留锁文件 ===="
+sudo rm -rf /tmp/.X*-lock
+sudo rm -rf /tmp/.xrdp*
+
+echo "==== 配置完成 ===="
+echo "请使用 Windows RDP 或其他 RDP 客户端，用户名：$USER，密码：你的系统密码"
+echo "请在登录时选择 Xorg 会话。"
 ```
 
 ## 问题
