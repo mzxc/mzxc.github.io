@@ -1,0 +1,24 @@
+/* Custom focus styles: remove default blue ring on click, keep keyboard-visible focus. */
+
+:where(a, button, .btn, input, select, textarea, [role="button"]):focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+:where(a, button, .btn, input, select, textarea, [role="button"]):focus-visible {
+  outline: 2px solid #0085a1;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(0, 133, 161, 0.18);
+}
+
+/* Keep text links elegant while still clearly focused by keyboard. */
+a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Rounded controls look better with a soft ring than hard corners. */
+:where(button, .btn, input, select, textarea, [role="button"]):focus-visible {
+  border-radius: 4px;
+}
+
