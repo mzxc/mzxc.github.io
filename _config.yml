@@ -24,7 +24,7 @@ ba_track_id: 21fff44e2ce8d25c2b6945d03572c1d7
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
 sidebar-about-description: "任凭风浪起 独坐钓鱼台"
-sidebar-avatar: /img/bg_sidecar.jpg # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/bg_sidecar.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Friends
 friends:
